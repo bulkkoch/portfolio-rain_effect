@@ -1,4 +1,4 @@
-export default function ControlPanel({ onSize, onSpeed }) {
+export default function ControlPanel({ size, onSize, speed, onSpeed }) {
   return (
     <div
       style={{
@@ -18,6 +18,7 @@ export default function ControlPanel({ onSize, onSpeed }) {
           max="2"
           step="0.1"
           onChange={(event) => onSize(event.target.value)}
+          value={size}
           style={{ writingMode: "vertical-lr", textAlign:"left", transform:"rotate(180deg)" }}
         />
       </label>
@@ -29,6 +30,7 @@ export default function ControlPanel({ onSize, onSpeed }) {
           max="3"
           step="0.1"
           onChange={(event) => onSpeed(event.target.value)}
+          value={speed}
           style={{ writingMode: "vertical-lr", textAlign:"left", transform:"rotate(180deg)" }}
         />
       </label>
