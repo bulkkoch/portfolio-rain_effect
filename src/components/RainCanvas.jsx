@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import { Howl } from "howler";
 import rainDropSound from "../assets/water-drop-stereo.mp3";
+import waterLily from "../assets/water-lily.png";
 
 export default function RainCanvas({ sizeConstant, speedConstant }) {
   const canvasRef = useRef(null);
@@ -13,10 +14,23 @@ export default function RainCanvas({ sizeConstant, speedConstant }) {
     const ctx = canvas.getContext("2d");
 
     //캔버스 크기 조절 함수수
-    function setCanvasSize(){
+    function setCanvasSize() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
+
+    const floatingLeaf = {
+      x: 0,
+      y: window.innerHeight * 0.7,
+      width: 70,
+      height: 70,
+      speed: 2,
+      angle: 0,
+      rotationSpeed: 0.1,
+    };
+
+    const floatingLeafImg = new Image();
+    floatingLeafImg.src = waterLily;
 
     raindropsRef.current = Array(100)
       .fill()
@@ -32,7 +46,7 @@ export default function RainCanvas({ sizeConstant, speedConstant }) {
     const rainAudio = new Howl({
       src: [rainDropSound],
       volume: 0.03,
-      preload: false
+      preload: false,
     });
 
     function playRainSound() {
@@ -62,8 +76,6 @@ export default function RainCanvas({ sizeConstant, speedConstant }) {
         raindrop.y += raindrop.speed;
         if (raindrop.y >= raindrop.groundHeight) {
           playRainSound();
-          raindrop.y = 0;
-          raindrop.x = Math.random() * canvas.width;
 
           //빗방울 땅에 닿을 때 물결 효과 추가
           ripplesRef.current.push({
@@ -72,6 +84,9 @@ export default function RainCanvas({ sizeConstant, speedConstant }) {
             radius: 0,
             alpha: 1,
           });
+
+          raindrop.y = 0;
+          raindrop.x = Math.random() * canvas.width;
         }
       });
 
@@ -90,11 +105,33 @@ export default function RainCanvas({ sizeConstant, speedConstant }) {
         }
       });
 
+      ctx.save();
+      ctx.translate(
+        floatingLeaf.x + floatingLeaf.width / 2,
+        floatingLeaf.y + floatingLeaf.height / 2
+      );
+      ctx.rotate(floatingLeaf.angle);
+      ctx.drawImage(
+        floatingLeafImg,
+        -floatingLeaf.width / 2,
+        -floatingLeaf.height / 2,
+        floatingLeaf.width,
+        floatingLeaf.height
+      );
+      ctx.restore();
+
+      floatingLeaf.x += floatingLeaf.speed;
+      floatingLeaf.angle += floatingLeaf.rotationSpeed;
+
+      if (floatingLeaf.x > canvas.width) {
+        floatingLeaf.x = -floatingLeaf.width;
+      }
+
       requestAnimationFrame(draw);
     }
 
     setCanvasSize();
-    window.addEventListener('resize',setCanvasSize);
+    window.addEventListener("resize", setCanvasSize);
     draw();
   }, []);
 
