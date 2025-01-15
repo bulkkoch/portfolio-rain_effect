@@ -60,10 +60,10 @@ export default function RainCanvas({ sizeConstant, speedConstant }) {
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = "#d2b48c";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // ctx.fillStyle = "#d2b48c";
+      // ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = "rgba(173,216,230,0.7)";
+      ctx.fillStyle = "rgb(173,216,255)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       raindropsRef.current.forEach((raindrop) => {
@@ -92,8 +92,8 @@ export default function RainCanvas({ sizeConstant, speedConstant }) {
 
       ripplesRef.current.forEach((ripple, index) => {
         ctx.beginPath();
-        ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(0,0,255,${ripple.alpha})`; //선 색깔
+        ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI*2);
+        ctx.strokeStyle = `rgba(0,0,230,${ripple.alpha})`; //선 색깔
         ctx.lineWidth = 2; //선 굵기
         ctx.stroke();
 

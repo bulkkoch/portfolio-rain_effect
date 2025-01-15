@@ -10,7 +10,7 @@ export default function ControlPanel({ size, onSize, speed, onSpeed }) {
         gap:"20px"
       }}
     >
-      <label style={{textAlign:"right"}}>
+      <label style={{textAlign:"right", fontWeight:"bold"}}>
         Size
         <input
           type="range"
@@ -22,7 +22,7 @@ export default function ControlPanel({ size, onSize, speed, onSpeed }) {
           style={{ writingMode: "vertical-lr", textAlign:"left", transform:"rotate(180deg)" }}
         />
       </label>
-      <label style={{textAlign:"right"}}>
+      <label style={{textAlign:"right", fontWeight:"bold"}}>
         Speed
         <input
           type="range"
