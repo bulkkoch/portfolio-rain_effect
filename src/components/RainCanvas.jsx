@@ -13,7 +13,7 @@ export default function RainCanvas({ sizeConstant, speedConstant }) {
 
     const ctx = canvas.getContext("2d");
 
-    //캔버스 크기 조절 함수수
+    //캔버스 크기 조절 함수
     function setCanvasSize() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -32,7 +32,7 @@ export default function RainCanvas({ sizeConstant, speedConstant }) {
     const floatingLeafImg = new Image();
     floatingLeafImg.src = waterLily;
 
-    raindropsRef.current = Array(100)
+    raindropsRef.current = Array(55)
       .fill()
       .map(() => ({
         x: Math.random() * canvas.width,
